@@ -1,8 +1,19 @@
 #!/bin/bash
-# cd ~/android/kernel/mystery/
-export CROSS_COMPILE=~/android/toolchain/arm-eabi-4.8/bin/arm-eabi-
-export USE_CCACHE=1
-export ARCH=arm ARCH_MTK_PLATFORM=mt6580
-#make clean 
-make x510_defconfig
-./build.sh
+
+# Get kernel configuration
+if [ -f mystery_kernel.conf ]
+  then
+    source "mystery_kernel.conf"
+  else
+	echo "Kernel configuration file (mystery_kernel.conf) does not exist!"
+	exit -1
+fi
+
+# Get available CPU cores
+CORES = getconf _NPROCESSORS_ONLN
+
+export PATH=$PATH:$TOOLCHAIN_PATH
+export CROSS_COMPILE=arm-eabi-
+
+make -C $PWD O=$PWD/out ARCH=arm x510_defconfig
+make -j$CORES
