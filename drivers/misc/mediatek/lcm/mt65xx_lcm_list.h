@@ -33,7 +33,7 @@ extern LCM_DRIVER hx8369b_dsi_vdo_lcm_drv;
 extern LCM_DRIVER hx8369b_wvga_dsi_vdo_drv;
 extern LCM_DRIVER hx8389b_qhd_dsi_vdo_drv;
 extern LCM_DRIVER hx8369_hvga_lcm_drv;
-extern LCM_DRIVER hx8394d_dsi_vdo_hlt_hsd_hd720;
+extern LCM_DRIVER hx8394d_dsi_vdo_hlt_hsd_hd720_lcm_drv;
 extern LCM_DRIVER ili9481_lcm_drv;
 extern LCM_DRIVER nt35582_lcm_drv;
 extern LCM_DRIVER s6d0170_lcm_drv;
@@ -237,7 +237,7 @@ extern LCM_DRIVER r69429_wqxga_dsi_vdo_lcm_drv;
 extern LCM_DRIVER hx8394c_wxga_dsi_vdo_lcm_drv;
 extern LCM_DRIVER nt35595_truly_fhd_dsi_vdo_lcm_drv;
 extern LCM_DRIVER b080uan01_2_wuxga_dsi_vdo_lcm_drv;
-extern LCM_DRIVER nt35521_dsi_vdo_yushun_cmi_hd720;
+extern LCM_DRIVER nt35521_dsi_vdo_yushun_cmi_hd720_lcm_drv;
 //begin-20150612-fangjie-add-lcm driver for pixi4-4 WVGA 800*480
 extern LCM_DRIVER ili9806e_wvga_dsi_vdo_Holitech_lcm_drv_pixi44;
 extern LCM_DRIVER fl10802_wvga_dsi_vdo_TXD_lcm_drv_pixi44;

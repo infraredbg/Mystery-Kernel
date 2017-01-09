@@ -463,9 +463,9 @@ static unsigned int lcm_ata_check(unsigned char *buffer)
 #endif
 }
 
-LCM_DRIVER nt35521_vdo_yushun_hd720_d5130_lcm_drv = 
+LCM_DRIVER nt35521_dsi_vdo_yushun_cmi_hd720_lcm_drv =
 {
-    .name			= "nt35521_vdo_yushun_hd720_d5130",
+    .name           = "nt35521_dsi_vdo_yushun_cmi_hd720",
     .set_util_funcs = lcm_set_util_funcs,
     .get_params     = lcm_get_params,
     .init           = lcm_init,
