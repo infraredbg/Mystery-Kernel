@@ -9,11 +9,8 @@ if [ -f mystery_kernel.conf ]
 	exit -1
 fi
 
-# Get available CPU cores
-CORES = getconf _NPROCESSORS_ONLN
-
 export PATH=$PATH:$TOOLCHAIN_PATH
 export CROSS_COMPILE=arm-eabi-
 
 make -C $PWD O=$PWD/out ARCH=arm x510_defconfig
-make -j$CORES
+make -j$(getconf _NPROCESSORS_ONLN) -C $PWD O=$PWD/out ARCH=arm
