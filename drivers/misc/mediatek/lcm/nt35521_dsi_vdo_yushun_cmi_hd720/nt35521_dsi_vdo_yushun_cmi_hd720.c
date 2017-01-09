@@ -35,6 +35,8 @@
 #define FRAME_WIDTH                                         (720)
 #define FRAME_HEIGHT                                        (1280)
 
+#define LCM_ID                                              (0x55)
+
 #define REGFLAG_DELAY                                       0xFE
 #define REGFLAG_END_OF_TABLE                                0xFFE   // END OF REGISTERS MARKER
 
@@ -369,26 +371,37 @@ static unsigned int lcm_compare_id(void)
     int id=0;
 
     SET_RESET_PIN(1);
-    MDELAY(20);
+    MDELAY(10);
     SET_RESET_PIN(0);
-    MDELAY(20);
+    MDELAY(50);
     SET_RESET_PIN(1);
-    MDELAY(150);
+    MDELAY(120);
 
-    array[0] = 0x00033700;// read id return two byte,version and id
+    array[0] = 0x00063902;
+    array[1] = 0x52AA55F0;
+    array[2] = 0x00000108;
+    dsi_set_cmdq(array, 3, 1);
+
+    array[0] = 0x00033700; //read id return two byte,version and id
     dsi_set_cmdq(array, 1, 1);
-    read_reg_v2(0x04, buffer, 3);
+
+    read_reg_v2(0xC5, buffer, 3);
     id = buffer[1]; //we only need ID
 
 #ifdef BUILD_LK
-    printf("zbuffer %s \n", __func__);
+    printf("nt35521 lk %s,buffer=%x,%x,%x,%x\n", __func__,buffer[0],buffer[1],buffer[2],id);
     printf("%s id = 0x%08x \n", __func__, id);
 #else
-    printk("zbuffer %s \n", __func__);
+    printk("nt35521 kernel %s \n", __func__);
     printk("%s id = 0x%08x \n", __func__, id);
 #endif
 
-    return (0x80 == id)?1:0;
+    // It was not entirely clear to me, so force to 1 for now
+#if 0
+    return (LCM_ID == id)?1:0;
+#else
+    return 1;
+#endif
 }
 
 static unsigned int rgk_lcm_compare_id(void)
