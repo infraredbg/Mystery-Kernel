@@ -30,6 +30,7 @@
 #define MIN_VOLTAGE (500)
 #define MAX_VOLTAGE (700)
 
+#define LCM_DSI_CMD_MODE                                    0
 
 #define FRAME_WIDTH  										(720)
 #define FRAME_HEIGHT 										(1280)
