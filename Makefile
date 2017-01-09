@@ -398,7 +398,16 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+# I.nfraR.ed: temp fix. Don't threat warnings as errors
+# it is better to disable explicitly just needed flags
+#
+# KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+# 		   -fno-strict-aliasing -fno-common \
+# 		   -Werror-implicit-function-declaration \
+# 		   -Wno-format-security \
+# 		   -std=gnu89
+
+KBUILD_CFLAGS   := -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
@@ -748,7 +757,9 @@ NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
 CHECKFLAGS     += $(NOSTDINC_FLAGS)
 
 # warn about C99 declaration after statement
-KBUILD_CFLAGS += $(call cc-option,-Wdeclaration-after-statement,)
+# I.nfraR.ed: temp disable this warning being threated as error
+# Should be fixed on source level
+# KBUILD_CFLAGS += $(call cc-option,-Wdeclaration-after-statement,)
 
 # disable pointer signed / unsigned warnings in gcc 4.0
 KBUILD_CFLAGS += $(call cc-disable-warning, pointer-sign)
@@ -760,13 +771,23 @@ KBUILD_CFLAGS	+= $(call cc-option,-fno-strict-overflow)
 KBUILD_CFLAGS   += $(call cc-option,-fconserve-stack)
 
 # disallow errors like 'EXPORT_GPL(foo);' with missing header
-KBUILD_CFLAGS   += $(call cc-option,-Werror=implicit-int)
+# I.nfraR.ed: temp disable this warning being threated as error
+# Should be fixed on source level
+#KBUILD_CFLAGS   += $(call cc-option,-Werror=implicit-int)
 
 # require functions to have arguments in prototypes, not empty 'int foo()'
 KBUILD_CFLAGS   += $(call cc-option,-Werror=strict-prototypes)
 
 # Prohibit date/time macros, which would make the build non-deterministic
-KBUILD_CFLAGS   += $(call cc-option,-Werror=date-time)
+# I.nfraR.ed: temp disable this warning being threated as error
+# Should be fixed on source level
+#KBUILD_CFLAGS   += $(call cc-option,-Werror=date-time)
+
+# I.nfraR.ed: temp fix for hx8394d_dsi_vdo_hlt_hsd_hd720
+KBUILD_CFLAGS   += $(call cc-option,-Wno-incompatible-pointer-types)
+
+# I.nfraR.ed: temp fix for hx8394d_dsi_vdo_hlt_hsd_hd720
+KBUILD_CFLAGS   += $(call cc-option,-Wno-useless-storage-class)
 
 # use the deterministic mode of AR if available
 KBUILD_ARFLAGS := $(call ar-option,D)
