@@ -274,13 +274,13 @@ static void lcm_get_params(LCM_PARAMS *params)
     params->dsi.horizontal_frontporch               = 110;
     params->dsi.horizontal_active_pixel             = FRAME_WIDTH;
 
-    params->dsi.PLL_CLOCK                           = 302;
+    params->dsi.PLL_CLOCK                           = 299;
     params->dsi.ssc_disable                         = 1;
     params->dsi.esd_check_enable                    = 1;
     params->dsi.customization_esd_check_enable      = 1;
-    params->dsi.lcm_esd_check_table[0].cmd          = 0x0a;
+    params->dsi.lcm_esd_check_table[0].cmd          = 0x53;
     params->dsi.lcm_esd_check_table[0].count        = 1;
-    params->dsi.lcm_esd_check_table[0].para_list[0] = 0x9c;
+    params->dsi.lcm_esd_check_table[0].para_list[0] = 0x24;
 }
 
 static void lcm_get_pin(void)
