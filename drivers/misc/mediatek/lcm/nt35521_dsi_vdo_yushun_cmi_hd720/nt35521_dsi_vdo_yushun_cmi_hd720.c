@@ -52,7 +52,7 @@ static unsigned int lcm_gpio_enp;
 #define MDELAY(n) (lcm_util.mdelay(n))
 
 #ifndef BUILD_LK
-extern atomic_t ESDCheck_byCPU; 
+extern atomic_t ESDCheck_byCPU;
 #endif
 // ---------------------------------------------------------------------------
 //  Local Functions
@@ -76,12 +76,12 @@ static struct LCM_setting_table {
 
 
 static struct LCM_setting_table lcm_initialization_setting[] = {
-	
+
 	/*
 	Note :
 
 	Data ID will depends on the following rule.
-	
+
 		count of parameters > 1	=> Data ID = 0x39
 		count of parameters = 1	=> Data ID = 0x15
 		count of parameters = 0	=> Data ID = 0x05
@@ -94,7 +94,7 @@ static struct LCM_setting_table lcm_initialization_setting[] = {
 	...
 
 	Setting ending by predefined flag
-	
+
 	{REGFLAG_END_OF_TABLE, 0x00, {}}
 	*/
 
@@ -105,7 +105,7 @@ static struct LCM_setting_table lcm_initialization_setting[] = {
 {0x6F,1,{0x16}},
 {0xF7,1,{0x10}},
 
-{0XFF,4,{0XAA,0X55,0X25,0X01}},  //参数4
+{0XFF,4,{0XAA,0X55,0X25,0X01}},  // parameter 4
 {0X6F,1,{0X21}},
 {0XF7,1,{0X01}},
 {0X6F,1,{0X21}},
@@ -138,7 +138,7 @@ static struct LCM_setting_table lcm_initialization_setting[] = {
 {0xB0,16,{0x00,0x00,0x00,0x0B,0x00,0x22,0x00,0x38,0x00,0x4E,0x00,0x6C,0x00,0x89,0x00,0xBE}},
 {0xB1,16,{0x00,0xE8,0x01,0x2F,0x01,0x68,0x01,0xC4,0x02,0x11,0x02,0x13,0x02,0x59,0x02,0x9E}},
 {0xB2,16,{0x02,0xC1,0x02,0xF9,0x03,0x14,0x03,0x42,0x03,0x60,0x03,0x83,0x03,0x9B,0x03,0xB4}},
-{0xB3,4,{0x03,0xE3,0x03,0xFF}},		
+{0xB3,4,{0x03,0xE3,0x03,0xFF}},
 {0x6F,1,{0x17}},
 {0xF4,1,{0x60}},
 {0x6F,1,{0x11}},
@@ -202,9 +202,9 @@ static struct LCM_setting_table lcm_initialization_setting[] = {
 {0xEF,2,{0x07,0xFF}},
 */
 {0x11,1,{0x00}},
-{REGFLAG_DELAY, 120, {}},      
+{REGFLAG_DELAY, 120, {}},
 {0x29,1,{0x00}},
-{REGFLAG_DELAY, 30, {}},      
+{REGFLAG_DELAY, 30, {}},
 
 };
 
@@ -219,7 +219,7 @@ static void push_table(struct LCM_setting_table *table, unsigned int count, unsi
 	{
 		unsigned cmd;
 		cmd = table[i].cmd;
-		
+
 		switch (cmd)
 		{
 			case REGFLAG_DELAY :
@@ -228,7 +228,7 @@ static void push_table(struct LCM_setting_table *table, unsigned int count, unsi
 
 				case REGFLAG_END_OF_TABLE :
 				break;
-				
+
 			default:
 				dsi_set_cmdq_V2(cmd, table[i].count, table[i].para_list, force_update);
 		}
@@ -251,7 +251,7 @@ static void lcm_get_params(LCM_PARAMS *params)
 #if (LCM_DSI_CMD_MODE)
 		params->dsi.mode   = CMD_MODE;
 #else
-		params->dsi.mode   = SYNC_PULSE_VDO_MODE; //SYNC_PULSE_VDO_MODE;//BURST_VDO_MODE; 
+		params->dsi.mode   = SYNC_PULSE_VDO_MODE; //SYNC_PULSE_VDO_MODE;//BURST_VDO_MODE;
 #endif
 
 
@@ -301,11 +301,11 @@ static void lcm_get_pin(void)
 
 static void lcm_rst_pin_set(unsigned int GPIO, unsigned int output)
 {
-	
+
 	lcm_get_pin();
 	gpio_set_value(GPIO, output);
 
-	
+
 	}
 
 static struct LCM_setting_table lcm_deep_sleep_mode_in_setting[] = {
@@ -318,18 +318,18 @@ static struct LCM_setting_table lcm_deep_sleep_mode_in_setting[] = {
 };
 static void lcm_init(void)
 {
-	
+
  lcm_get_pin();
 
-//gpio_direction_input(GPIO_READ_ID_PIN);//设置为输入
-//gpio_get_value(GPIO_READ_ID_PIN);//获取输入电平，你自己弄个变量保存一下。
-  gpio_direction_output(lcm_gpio_enn, 0);//设为输出 	
+//gpio_direction_input(GPIO_READ_ID_PIN);//Set as input
+//gpio_get_value(GPIO_READ_ID_PIN);//Get the input value and save it to the variable
+  gpio_direction_output(lcm_gpio_enn, 0);//Set to output
    	MDELAY(10);
-  gpio_direction_output(lcm_gpio_enp, 0);//设为输出
+  gpio_direction_output(lcm_gpio_enp, 0);//Set to output
  	MDELAY(10);
-	gpio_set_value(lcm_gpio_enn, 1);//设为输出高电平
+	gpio_set_value(lcm_gpio_enn, 1);//Set output level to high
 	MDELAY(10);
-	gpio_set_value(lcm_gpio_enp, 1);//设为输出高电平
+	gpio_set_value(lcm_gpio_enp, 1);//Set output level to high
 	MDELAY(10);
 
 
@@ -353,15 +353,15 @@ static void lcm_suspend(void)
     MDELAY(20);
     lcm_get_pin();
 
-//gpio_direction_input(GPIO_READ_ID_PIN);//设置为输入
-//gpio_get_value(GPIO_READ_ID_PIN);//获取输入电平，你自己弄个变量保存一下。
- gpio_direction_output(lcm_gpio_enn, 0);//设为输出
+//gpio_direction_input(GPIO_READ_ID_PIN);//Set as input
+//gpio_get_value(GPIO_READ_ID_PIN);//Get input value and save to variable
+ gpio_direction_output(lcm_gpio_enn, 0);//Set to output
  	MDELAY(10);
- gpio_direction_output(lcm_gpio_enp, 0);//设为输出
+ gpio_direction_output(lcm_gpio_enp, 0);//Set to output
 	MDELAY(10);
-	gpio_set_value(lcm_gpio_enn, 0);//设为输出low电平
+	gpio_set_value(lcm_gpio_enn, 0);//Set output level to low
 	MDELAY(10);
-	gpio_set_value(lcm_gpio_enp, 0);//设为输出low电平
+	gpio_set_value(lcm_gpio_enp, 0);//et output level to low
 MDELAY(10);
 
 }
@@ -394,16 +394,16 @@ static unsigned int lcm_compare_id(void)
 	read_reg_v2(0x04, buffer, 3);
 	id = buffer[1]; //we only need ID
 
-	
+
    #ifdef BUILD_LK
 		printf("zbuffer %s \n", __func__);
 		printf("%s id = 0x%08x \n", __func__, id);
 	#else
 		printk("zbuffer %s \n", __func__);
 		printk("%s id = 0x%08x \n", __func__, id);
-	
+
    #endif
-	 
+
   	return (0x80 == id)?1:0;
 }
 
@@ -417,12 +417,12 @@ static unsigned int rgk_lcm_compare_id(void)
 #ifdef AUXADC_LCM_VOLTAGE_CHANNEL
     res = IMM_GetOneChannelValue(AUXADC_LCM_VOLTAGE_CHANNEL,data,&rawdata);
     if(res < 0)
-    { 
+    {
 	#ifdef BUILD_LK
 	printf("[adc_uboot]: get data error\n");
 	#endif
 	return 0;
-		   
+
     }
 #endif
 
@@ -449,14 +449,14 @@ static unsigned int lcm_ata_check(unsigned char *buffer)
 	 int array[4];
 	 char buf[5];
 	 int id=0;
-	
+
 	 array[0] = 0x00033700;// read id return two byte,version and id
 	 atomic_set(&ESDCheck_byCPU,1);
 	 dsi_set_cmdq(array, 1, 1);
 	 read_reg_v2(0x04, buf, 3);
 	 atomic_set(&ESDCheck_byCPU,0);
 	 id = buf[1]; //we only need ID
-	  
+
 	 return (0x80 == id)?1:0;
 #else
 	return 0;
