@@ -208,7 +208,8 @@ CONFIG_MMPROFILE=y
 CONFIG_MTK_LCM=y
 
 #Begin ersen.shang modify for lcm
-CONFIG_CUSTOM_KERNEL_LCM="hx8394d_dsi_vdo_hlt_hsd_hd720 nt35521_dsi_vdo_yushun_cmi_hd720"
+#CONFIG_CUSTOM_KERNEL_LCM="hx8394d_dsi_vdo_hlt_hsd_hd720 nt35521_dsi_vdo_yushun_cmi_hd720"
+CONFIG_CUSTOM_KERNEL_LCM="nt35521_dsi_vdo_yushun_cmi_hd720"
 #End   ersen.shang modify for lcm
 
 CONFIG_MTK_FB=y
